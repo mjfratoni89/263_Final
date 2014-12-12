@@ -41,15 +41,23 @@ for team in os.listdir('./Teams'):
                 if data[i,0].split('-')[0]=='2012':
                     stats.append(data[i,:])
                 if data[i,0].split('-')[0]=='2013':
-                    stats.append(data[i,:])
-                #if data[i,0]==data[(i-1),0]:
-                 #   del stats[stats.index(data[i,:])]
-            stats=np.array(stats)
+                    stats.append(data[i,:])                
                     
-            print(stats)
+            stats=np.array(stats)
+            fstats=[]
+            print(player)
+            for j in range(len(stats)):
+                if j>0:
+                    if not stats[j,1]==stats[(j-1),1]:
+                        fstats.append(stats[j,:])
+                else:
+                    fstats.append(stats[j,:])
+            fstats=np.array(fstats)
+                    
+            print(fstats)
         
         
-                
+                        
             
     os.chdir(owd)
      
