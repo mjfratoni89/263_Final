@@ -1,10 +1,9 @@
 import numpy as np
 import os
 
-path=os.chdir('Teams')
 owd=os.getcwd()
 x=0 #see the x below
-for team in os.listdir(path):
+for team in os.listdir('./Teams'):
     v=os.chdir(team)
     for player in os.listdir(v):
         #data = np.genfromtxt(r,delimiter=',',skip_header=2)
