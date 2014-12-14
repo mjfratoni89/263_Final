@@ -4,9 +4,11 @@ from sklearn import tree
 
 owd=os.getcwd()
 x=0 #see the x below
+League=[]
 for team in os.listdir('./Teams'):
     # v=os.chdir(team)
     if team not in '.ipynb_checkpoints':
+        Team_Tot=[]
         for player in os.listdir('./Teams/' + team):
             data=[]
             with open('./Teams/' + team + '/' + player,'r') as q:
@@ -28,8 +30,8 @@ for team in os.listdir('./Teams'):
                         x==1
                     else:
                         #these are the stats we decide to use
-                        #here I have the yr, age, team, games played
-                        data.append([str(l[0]),float(l[1]),float(l[5]),float(l[10])])
+                        #here I have the yr, MP, age, FG, FGA, 2G, 2GA, 3G, 3GA, PTS, DRB 
+                        data.append([str(l[0]),float(l[7]),float(l[1]),float(l[8]),float(l[9]),float(l[14]),float(l[15]),float(l[11]),float(l[12]),float(l[29]),float(l[22])])
             data=np.array(data)
             stats=[]
             tst_stats=[]
@@ -45,14 +47,13 @@ for team in os.listdir('./Teams'):
                 if data[i,0].split('-')[0]=='2013':
                     stats.append(data[i,:])
                 if data[i,0].split('-')[0]=='2014':
-                    tst_stats.append(data[i,:])                    
+                    stats.append(data[i,:])                    
             stats=np.array(stats)
-            tst_stats=np.array(tst_stats)
     
             trn_stats=[]
             for j in range(len(stats)):
                 if j>0:
-                    if not stats[j,1]==stats[(j-1),1]:
+                    if not stats[j,2]==stats[(j-1),2]:
                         trn_stats.append(stats[j,:])
                 else:
                     trn_stats.append(stats[j,:])
@@ -63,11 +64,43 @@ for team in os.listdir('./Teams'):
 
             print(player)                    
             print(trn_stats)
-            print(tst_stats)
-            dt=tree.DecisionTreeRegressor(max_depth=5)
-                    
-        
-                        
+            X_trn=trn_stats[:,:2]
+            Y_trn=trn_stats[:,2:]
+            X_tst=np.array([1500,X_trn[-1,1]])
+                
+            dt=tree.DecisionTreeRegressor(max_depth=10)
+            fit=dt.fit(X_trn,Y_trn)
+            final_stats=fit.predict(X_tst)
+            print(X_tst,final_stats)
+            Team_Tot.append(final_stats)
             
+        Team_Tot=np.array(Team_Tot)
+        FG, FGA, tG, tGA, hG, hGA, PTS, DRB = [],[],[],[],[],[],[],[]
+        for i in range(len(Team_Tot)):
+            FG.append(Team_Tot[i][0][0])
+            FGA.append(Team_Tot[i][0][1])
+            tG.append(Team_Tot[i][0][2])
+            tGA.append(Team_Tot[i][0][3])
+            hG.append(Team_Tot[i][0][4])
+            hGA.append(Team_Tot[i][0][5])
+            PTS.append(Team_Tot[i][0][6])
+            DRB.append(Team_Tot[i][0][7])
+        FG=sum(FG)
+        FGA=sum(FGA)
+        FGp=FG/FGA
+        tG=sum(tG)
+        tGA=sum(tGA)
+        tGp=tG/tGA
+        hG=sum(hG)
+        hGA=sum(hGA)
+        hGp=hG/hGA
+        PTS=sum(PTS)
+        DRB=sum(DRB)
+        Team_tot=[FGp,tGp,hGp,PTS,DRB]
+        
+    League.append(Team_tot)
+                                            
     os.chdir(owd)
+League=np.array(League)
+print(League)
      
