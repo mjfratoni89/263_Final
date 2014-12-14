@@ -99,9 +99,8 @@ for team in os.listdir('./Teams'):
             DRB=sum(DRB)
             Team_tot=[FGp,tGp,hGp,PTS,DRB]
         
-    League.append(Team_Tot)
+    League.append(Team_tot)
                                             
     os.chdir(owd)
 League=np.array(League)
-print(League)
-     
+print 'League is ' + str(League)
