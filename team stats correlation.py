@@ -11,6 +11,8 @@ data = np.genfromtxt('leagues_NBA_2014_team.csv',delimiter=',',skip_header=1,use
 cor_matrix=np.corrcoef(data)
 cor_matrix=cor_matrix[0,:]
 
+print cor_matrix 
+
 max_corr=0
 for i in range(len(cor_matrix)):
     if max_corr<cor_matrix[i] and cor_matrix[i]<1:
