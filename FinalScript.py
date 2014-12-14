@@ -29,7 +29,7 @@ for team in os.listdir('./Teams'):
                     else:
                         #these are the stats we decide to use
                         #here I have the yr, age, team, games played
-                        data.append([str(l[0]),float(l[1]),str(l[2]),float(l[5]),float(l[10])])
+                        data.append([str(l[0]),float(l[1]),float(l[5]),float(l[10])])
             data=np.array(data)
             stats=[]
             tst_stats=[]
@@ -58,10 +58,8 @@ for team in os.listdir('./Teams'):
                     trn_stats.append(stats[j,:])
             trn_stats=np.array(trn_stats)
             if not trn_stats.size==0:
-                trn_stats1=trn_stats[:,1]
-                trn_stats2=trn_stats[:,3]
-                trn_stats3=trn_stats[:,4]
-                trn_stats=np.vstack((trn_stats1,trn_stats2,trn_stats3))
+                trn_stats=trn_stats[:,1:]
+                trn_stats=trn_stats.astype(np.float)
 
             print(player)                    
             print(trn_stats)
