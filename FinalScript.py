@@ -89,7 +89,7 @@ for team in os.listdir('./Teams'):
                 X_tst=np.array([float(PMP[np.where(names==player),0][0][0]),X_trn[-1,1]])
 
                 # the regression    
-                dt=tree.DecisionTreeRegressor(max_depth=10)
+                dt=tree.DecisionTreeRegressor()
                 fit=dt.fit(X_trn,Y_trn)
                 final_stats=fit.predict(X_tst)
 
@@ -120,7 +120,7 @@ for team in os.listdir('./Teams'):
             PTS=sum(PTS)
             DRB=sum(DRB)
             Team_tot=[FGp,tGp,hGp,PTS,DRB]
-            print(Team_tot)
+            print(team,'stats are',Team_tot)
 
     # aggregating all the teams into this year    
     League.append(Team_tot)
