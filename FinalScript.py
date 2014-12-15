@@ -8,6 +8,7 @@ x=0 #see the x below
 League=[]
 PMP=[]
 names=[]
+teamnames = []
 
 # getting the predicted minutes played for each player
 # that was calculated in PredictMinsPlayed2015.py
@@ -24,6 +25,7 @@ for team in os.listdir('./Teams'):
     if team not in '.ipynb_checkpoints':
         Team_Tot=[]
         if team not in '.DS_Store':
+            teamnames.append(team)
             for player in os.listdir('./Teams/' + team):
                 data=[]
                 with open('./Teams/' + team + '/' + player,'r') as q:
@@ -130,14 +132,9 @@ for team in os.listdir('./Teams'):
                                             
     os.chdir(owd)
 League=np.array(League)
+teamnames = np.array(teamnames)
 
 L = pickle.load(open('LinReg.pickle'))
-knn = pickle.load(open('knn.pickle'))
-
 p = L.predict(League)
-print 'ranks = '
 print p
-print ' or '
-print knn.predict(League)
-                           
-League=np.array(League)
+                        
