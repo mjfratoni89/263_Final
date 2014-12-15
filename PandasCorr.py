@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import pickle
 from sklearn.neighbors import KNeighborsRegressor
 from sklearn.cross_validation import KFold
 from sklearn.tree import DecisionTreeRegressor
@@ -114,3 +115,13 @@ for trnind,tstind in kf:
 
 print 'CV error for Linear Regression is ' + str(np.mean(CVerror))
 print L.get_params(deep=True)
+
+# pickling classifiers and regressors
+knn.fit(data2,rk)
+L.fit(data2,rk)
+
+with open('LinReg.pickle','wb') as f:
+	pickle.dump(L,f)
+
+with open('knn.pickle','wb') as f:
+	pickle.dump(knn,f)
