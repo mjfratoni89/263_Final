@@ -1,6 +1,7 @@
 import numpy as np
 import os
 from sklearn import tree
+import pickle
 
 owd=os.getcwd()
 x=0 #see the x below
@@ -98,9 +99,20 @@ for team in os.listdir('./Teams'):
             PTS=sum(PTS)
             DRB=sum(DRB)
             Team_tot=[FGp,tGp,hGp,PTS,DRB]
-        
-    League.append(Team_tot)
+    
+    if team not in '.ipynb_checkpoints':  
+        if team not in '.DS_Store':  
+            League.append(Team_tot)
                                             
     os.chdir(owd)
 League=np.array(League)
 print 'League is ' + str(League)
+
+L = pickle.load(open('LinReg.pickle'))
+knn = pickle.load(open('knn.pickle'))
+
+p = L.predict(League)
+print 'ranks = '
+print p
+print ' or '
+print knn.predict(League)

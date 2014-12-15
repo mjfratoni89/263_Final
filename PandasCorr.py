@@ -113,6 +113,8 @@ for trnind,tstind in kf:
 	error = np.sqrt(error)
 	CVerror.append(error)
 
+print p
+
 print 'CV error for Linear Regression is ' + str(np.mean(CVerror))
 print L.get_params(deep=True)
 
