@@ -51,7 +51,7 @@ while CVerrors[-2] > CVerrors[-1]:
 	# incrementing number of nearest neighbors in hopes of getting lower CV error
 	n += 5
 
-print 'CV error for K-Nearest Neighbors Regression is with n = ' + str(n) + ' is ' + str(np.mean(CVerror))
+print ('CV error for K-Nearest Neighbors Regression is with n = ' + str(n) + ' is ' + str(np.mean(CVerror)))
 
 # decision tree regressor
 leaf = 1
@@ -99,7 +99,7 @@ while CVerrors[-2] > CVerrors[-1]:
 
 split -= 1
 
-print 'CV error for Decision Tree Regressor is ' + str(np.mean(CVerror)) + ' with min_leaf = ' + str(leaf) + ' and min sampels = ' + str(split)
+print ('CV error for Decision Tree Regressor is ' + str(np.mean(CVerror)) + ' with min_leaf = ' + str(leaf) + ' and min sampels = ' + str(split))
 
 L = LinearRegression(fit_intercept=True,normalize=True)
 kf = KFold(len(data),n_folds=5,shuffle=True)
@@ -113,10 +113,10 @@ for trnind,tstind in kf:
 	error = np.sqrt(error)
 	CVerror.append(error)
 
-print p
+print (p)
 
-print 'CV error for Linear Regression is ' + str(np.mean(CVerror))
-print L.get_params(deep=True)
+print ('CV error for Linear Regression is ' + str(np.mean(CVerror)))
+print (L.get_params(deep=True))
 
 # pickling classifiers and regressors
 knn.fit(data2,rk)

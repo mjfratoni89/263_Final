@@ -134,7 +134,7 @@ for team in os.listdir('./Teams'):
 League=np.array(League)
 teamnames = np.array(teamnames)
 
-L = pickle.load(open('LinReg.pickle'))
+L = pickle.load(open('LinReg.pickle','rb'))
 p = L.predict(League)
-print p
+print (p)
                         
