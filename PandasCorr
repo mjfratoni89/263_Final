@@ -1,5 +1,0 @@
-import pandas as pd
-
-df = pd.DataFrame.from_csv('leagues_NBA_2014_team.csv')
-
-corr = df.corr()
