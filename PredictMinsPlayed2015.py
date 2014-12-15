@@ -2,6 +2,7 @@ import numpy as np
 import os
 
 csvfile=[]
+players=[]
 owd=os.getcwd()
 x=0 #see the x below
 for team in os.listdir('./Teams'):
@@ -13,6 +14,7 @@ for team in os.listdir('./Teams'):
             #data = np.genfromtxt(r,delimiter=',',skip_header=2)
             #x==n
             #print(r)
+            players.append(player)
             data=[]
             with open('./Teams/' + team + '/' + player,'r') as q:
                 for line in q:
@@ -51,6 +53,8 @@ for team in os.listdir('./Teams'):
             fstats=fstats.astype(np.float) 
             if not fstats.size==0:            
                 MP_Player_Tots.append(fstats[0])
+            else:
+                MP_Player_Tots.append(0)
         
         MP_Team_Tot=sum(MP_Player_Tots)
         MP_Player_Frac = MP_Player_Tots/MP_Team_Tot
@@ -68,7 +72,7 @@ print(csvfile)
 #print results to csv
 with open('predicted_minutes_played.csv','w') as f:
     for i in range(len(csvfile)):
-        f.write("%f\n" % (csvfile[i]))
+        f.write("%f,%s\n" % (csvfile[i],players[i]))
 f.close()
                  
             
